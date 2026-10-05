@@ -1,0 +1,19 @@
+# Go
+/bin/
+*.exe
+*.test
+*.out
+coverage.*
+
+# Angular
+admin-ui/node_modules/
+admin-ui/dist/
+admin-ui/.angular/
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+.env

@@ -1,0 +1,120 @@
+# Full local stack:  docker compose up --build
+#   API           http://localhost:8080
+#   Admin console http://localhost:4200
+#   Mailpit       http://localhost:8025   (captured emails)
+#   Stubs         http://localhost:8090   (SMS/push provider failure injection)
+#   Prometheus    http://localhost:9090
+#   Grafana       http://localhost:3000   (anonymous viewer access)
+
+x-app-env: &app-env
+  ORACLE_URL: oracle://app:app@oracle:1521/FREEPDB1
+  KAFKA_BROKERS: kafka:9092
+  WEBHOOK_SECRET: ${WEBHOOK_SECRET:-dev-webhook-secret}
+  LOG_LEVEL: info
+
+services:
+  oracle:
+    image: gvenzl/oracle-free:23-slim-faststart
+    environment:
+      ORACLE_PASSWORD: oracle
+      APP_USER: app
+      APP_USER_PASSWORD: app
+    ports: ["1521:1521"]
+    volumes: [oracle-data:/opt/oracle/oradata]
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  kafka:
+    image: apache/kafka:3.9.0
+    ports: ["9092:9094"]
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: INTERNAL://:9092,EXTERNAL://:9094,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports: ["8025:8025", "1025:1025"]
+
+  stubs:
+    build: .
+    entrypoint: ["/app/stubs"]
+    environment:
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET:-dev-webhook-secret}
+      SMS_BEHAVIOR: latencyMs=40,jitterMs=60,failureRate=0.02,deliveryFailureRate=0.01
+      PUSH_BEHAVIOR: latencyMs=20,jitterMs=30,failureRate=0.01
+    ports: ["8090:8090"]
+
+  api:
+    build: .
+    entrypoint: ["/app/api"]
+    environment:
+      <<: *app-env
+      HTTP_ADDR: ":8080"
+      CORS_ORIGIN: http://localhost:4200
+    ports: ["8080:8080"]
+    depends_on:
+      oracle: { condition: service_healthy }
+      kafka: { condition: service_healthy }
+
+  worker:
+    build: .
+    entrypoint: ["/app/worker"]
+    environment:
+      <<: *app-env
+      SMTP_ADDR: mailpit:1025
+      STUBS_URL: http://stubs:8090
+      WEBHOOK_BASE_URL: http://api:8080/api/v1/webhooks
+      WORKER_CONCURRENCY: "3"
+      # Relax with BREAKER_MIN_REQUESTS / BREAKER_CONSECUTIVE_FAILURES when running
+      # the failure-injection feature tests against this stack.
+      BREAKER_MIN_REQUESTS: ${BREAKER_MIN_REQUESTS:-10}
+      BREAKER_CONSECUTIVE_FAILURES: ${BREAKER_CONSECUTIVE_FAILURES:-5}
+    ports: ["9091:9091"]
+    depends_on:
+      api: { condition: service_started }
+      stubs: { condition: service_started }
+      mailpit: { condition: service_started }
+
+  admin-ui:
+    build: ./admin-ui
+    ports: ["4200:80"]
+    depends_on: [api]
+
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    volumes: [./ops/prometheus.yml:/etc/prometheus/prometheus.yml:ro]
+    ports: ["9090:9090"]
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./ops/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./ops/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["3000:3000"]
+    depends_on: [prometheus]
+
+volumes:
+  oracle-data:

@@ -1,0 +1,20 @@
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◆</span>
+      <span>Notifications</span>
+    </div>
+    <nav>
+      @for (item of nav; track item.path) {
+        <a [routerLink]="item.path" routerLinkActive="active">{{ item.label }}</a>
+      }
+    </nav>
+    <div class="links">
+      <a href="http://localhost:8025" target="_blank" rel="noopener">Mailpit ↗</a>
+      <a href="http://localhost:3000" target="_blank" rel="noopener">Grafana ↗</a>
+    </div>
+  </aside>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>
