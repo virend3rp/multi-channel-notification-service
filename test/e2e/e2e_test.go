@@ -64,7 +64,10 @@ func startStack(t *testing.T) target {
 			"ORACLE_PASSWORD": "oracle", "APP_USER": "app", "APP_USER_PASSWORD": "app",
 		}),
 		testcontainers.WithExposedPorts("1521/tcp"),
-		testcontainers.WithWaitStrategyAndDeadline(6*time.Minute, wait.ForLog("DATABASE IS READY TO USE!")),
+		// ForLog has its own 60s default that the outer deadline does not override, and a
+		// first Oracle start takes longer than that.
+		testcontainers.WithWaitStrategyAndDeadline(6*time.Minute,
+			wait.ForLog("DATABASE IS READY TO USE!").WithStartupTimeout(6*time.Minute)),
 	)
 	testcontainers.CleanupContainer(t, oracle)
 	if err != nil {
