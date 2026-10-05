@@ -8,8 +8,8 @@ import (
 
 	"github.com/segmentio/kafka-go"
 
-	"mcns/internal/messaging"
-	"mcns/internal/metrics"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/metrics"
 )
 
 // Consumer drives one kafka.Reader. Messages from a partition are handled one at a time

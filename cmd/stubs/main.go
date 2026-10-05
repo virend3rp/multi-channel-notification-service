@@ -8,8 +8,8 @@ import (
 	"os"
 	"time"
 
-	"mcns/internal/config"
-	"mcns/internal/stubs"
+	"github.com/virend3rp/multi-channel-notification-service/internal/config"
+	"github.com/virend3rp/multi-channel-notification-service/internal/stubs"
 )
 
 func main() {

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"mcns/internal/domain"
-	"mcns/internal/sig"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/sig"
 )
 
 func TestRequestHashIsOrderInsensitive(t *testing.T) {

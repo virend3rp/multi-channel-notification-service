@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"time"
 
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
 )
 
 // HTTP talks to an SMS or push gateway with a JSON API. In development that is the

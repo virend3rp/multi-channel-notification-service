@@ -10,9 +10,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 
-	"mcns/internal/domain"
-	"mcns/internal/render"
-	"mcns/internal/store"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/render"
+	"github.com/virend3rp/multi-channel-notification-service/internal/store"
 )
 
 var templateCode = regexp.MustCompile(`^[a-z0-9][a-z0-9-]{1,98}[a-z0-9]$`)

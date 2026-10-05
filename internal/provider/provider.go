@@ -9,7 +9,7 @@ import (
 	"net"
 	"net/textproto"
 
-	"mcns/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
 )
 
 // Provider sends one rendered notification and returns the provider's own message reference.

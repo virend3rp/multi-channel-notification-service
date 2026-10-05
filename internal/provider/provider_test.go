@@ -10,8 +10,8 @@ import (
 	"testing"
 	"time"
 
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
 )
 
 func TestClassifyHTTP(t *testing.T) {

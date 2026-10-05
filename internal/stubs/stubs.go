@@ -17,7 +17,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"mcns/internal/sig"
+	"github.com/virend3rp/multi-channel-notification-service/internal/sig"
 )
 
 // Behavior controls one channel's simulated provider.

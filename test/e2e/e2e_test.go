@@ -21,10 +21,10 @@ import (
 	tckafka "github.com/testcontainers/testcontainers-go/modules/kafka"
 	"github.com/testcontainers/testcontainers-go/wait"
 
-	"mcns/internal/app"
-	"mcns/internal/messaging"
-	"mcns/internal/resilience"
-	"mcns/internal/stubs"
+	"github.com/virend3rp/multi-channel-notification-service/internal/app"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/resilience"
+	"github.com/virend3rp/multi-channel-notification-service/internal/stubs"
 )
 
 const webhookSecret = "e2e-secret"

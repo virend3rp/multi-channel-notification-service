@@ -12,17 +12,17 @@ import (
 	"sync"
 	"time"
 
-	"mcns/internal/api"
-	"mcns/internal/config"
-	"mcns/internal/db"
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
-	"mcns/internal/metrics"
-	"mcns/internal/outbox"
-	"mcns/internal/provider"
-	"mcns/internal/resilience"
-	"mcns/internal/store"
-	"mcns/internal/worker"
+	"github.com/virend3rp/multi-channel-notification-service/internal/api"
+	"github.com/virend3rp/multi-channel-notification-service/internal/config"
+	"github.com/virend3rp/multi-channel-notification-service/internal/db"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/metrics"
+	"github.com/virend3rp/multi-channel-notification-service/internal/outbox"
+	"github.com/virend3rp/multi-channel-notification-service/internal/provider"
+	"github.com/virend3rp/multi-channel-notification-service/internal/resilience"
+	"github.com/virend3rp/multi-channel-notification-service/internal/store"
+	"github.com/virend3rp/multi-channel-notification-service/internal/worker"
 )
 
 type Config struct {

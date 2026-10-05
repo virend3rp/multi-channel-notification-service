@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"mcns/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
 )
 
 // SMTP delivers email over plain SMTP. In development it points at Mailpit.

@@ -6,9 +6,9 @@ import (
 	"log/slog"
 	"time"
 
-	"mcns/internal/messaging"
-	"mcns/internal/metrics"
-	"mcns/internal/store"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/metrics"
+	"github.com/virend3rp/multi-channel-notification-service/internal/store"
 )
 
 // Relay polls the outbox and publishes rows in seq order. It is at-least-once: a crash

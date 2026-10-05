@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
-	"mcns/internal/provider"
-	"mcns/internal/resilience"
-	"mcns/internal/store"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/provider"
+	"github.com/virend3rp/multi-channel-notification-service/internal/resilience"
+	"github.com/virend3rp/multi-channel-notification-service/internal/store"
 )
 
 // ------------------------------------------------------------------ fakes

@@ -15,9 +15,9 @@ import (
 	"github.com/google/uuid"
 	go_ora "github.com/sijms/go-ora/v2"
 
-	"mcns/internal/db"
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/db"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
 )
 
 var (

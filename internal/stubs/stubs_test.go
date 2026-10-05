@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"mcns/internal/sig"
+	"github.com/virend3rp/multi-channel-notification-service/internal/sig"
 )
 
 func post(t *testing.T, url, key string, body any) *http.Response {

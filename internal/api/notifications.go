@@ -17,12 +17,12 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
-	"mcns/internal/metrics"
-	"mcns/internal/render"
-	"mcns/internal/sig"
-	"mcns/internal/store"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/metrics"
+	"github.com/virend3rp/multi-channel-notification-service/internal/render"
+	"github.com/virend3rp/multi-channel-notification-service/internal/sig"
+	"github.com/virend3rp/multi-channel-notification-service/internal/store"
 )
 
 type SendRequest struct {

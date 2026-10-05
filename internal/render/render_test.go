@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"mcns/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
 )
 
 func TestRenderEmailEscapesHTML(t *testing.T) {

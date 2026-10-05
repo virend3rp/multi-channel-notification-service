@@ -14,8 +14,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"mcns/internal/metrics"
-	"mcns/internal/store"
+	"github.com/virend3rp/multi-channel-notification-service/internal/metrics"
+	"github.com/virend3rp/multi-channel-notification-service/internal/store"
 )
 
 type Server struct {

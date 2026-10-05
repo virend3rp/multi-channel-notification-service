@@ -1,4 +1,4 @@
-module mcns
+module github.com/virend3rp/multi-channel-notification-service
 
 go 1.26.0
 

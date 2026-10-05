@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"mcns/internal/app"
-	"mcns/internal/config"
+	"github.com/virend3rp/multi-channel-notification-service/internal/app"
+	"github.com/virend3rp/multi-channel-notification-service/internal/config"
 )
 
 func main() {

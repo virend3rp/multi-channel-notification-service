@@ -12,10 +12,10 @@ import (
 	"github.com/sony/gobreaker/v2"
 	"golang.org/x/time/rate"
 
-	"mcns/internal/domain"
-	"mcns/internal/messaging"
-	"mcns/internal/metrics"
-	"mcns/internal/provider"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/messaging"
+	"github.com/virend3rp/multi-channel-notification-service/internal/metrics"
+	"github.com/virend3rp/multi-channel-notification-service/internal/provider"
 )
 
 // ErrCircuitOpen is returned instead of calling a provider whose breaker is open.

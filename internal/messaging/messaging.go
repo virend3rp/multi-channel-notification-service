@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"mcns/internal/domain"
+	"github.com/virend3rp/multi-channel-notification-service/internal/domain"
 )
 
 const (
